@@ -3,7 +3,7 @@ import './globals.css';
 
 export const metadata: Metadata = {
   title: 'Happy Birthday | Memory Archive',
-  description: '2026.02.01 // MEMORY ARCHIVE',
+  description: '2026.02.02 // MEMORY ARCHIVE',
 };
 
 export const viewport: Viewport = {

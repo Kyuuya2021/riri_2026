@@ -53,7 +53,7 @@ export default function PhotoCard({ src, index, onOpen }: PhotoCardProps) {
         rotate: random.rotate,
       }}
     >
-      <div className="relative bg-white/10 backdrop-blur-sm p-2 border border-white/20 shadow-2xl transition-colors hover:bg-white/20 max-w-[45vw] sm:max-w-none">
+      <div className="relative bg-black/5 backdrop-blur-sm p-2 border border-black/20 shadow-2xl transition-colors hover:bg-black/10 max-w-[45vw] sm:max-w-none">
         <Image
           src={src}
           alt="memory"
@@ -62,8 +62,8 @@ export default function PhotoCard({ src, index, onOpen }: PhotoCardProps) {
           className="w-28 sm:w-40 md:w-60 h-auto object-contain pointer-events-none select-none block max-w-full"
           priority={index < 3}
         />
-        <div className="absolute -top-1 -left-1 w-2 h-2 border-t border-l border-white/50" />
-        <div className="absolute -bottom-1 -right-1 w-2 h-2 border-b border-r border-white/50" />
+        <div className="absolute -top-1 -left-1 w-2 h-2 border-t border-l border-black/40" />
+        <div className="absolute -bottom-1 -right-1 w-2 h-2 border-b border-r border-black/40" />
       </div>
     </motion.div>
   );

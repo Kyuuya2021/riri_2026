@@ -17,17 +17,17 @@ export default function Home() {
   }, [selectedImage]);
 
   return (
-    <main className="relative w-full min-h-[100dvh] min-h-screen h-screen max-w-[100vw] bg-[#111] overflow-hidden text-white font-mono selection:bg-yellow-500 selection:text-black">
+    <main className="relative w-full min-h-[100dvh] min-h-screen h-screen max-w-[100vw] bg-[#e6e7e8] overflow-hidden text-[#000000] font-mono selection:bg-yellow-500 selection:text-black">
 
-      <div className="fixed inset-0 opacity-20 pointer-events-none z-0"
-           style={{ backgroundImage: `radial-gradient(#444 1px, transparent 1px)`, backgroundSize: '24px 24px' }}>
+      <div className="fixed inset-0 opacity-30 pointer-events-none z-0"
+           style={{ backgroundImage: `radial-gradient(#999 1px, transparent 1px)`, backgroundSize: '24px 24px' }}>
       </div>
 
-      <div className="absolute top-8 left-0 w-full text-center z-0 pointer-events-none select-none mix-blend-overlay">
-        <h1 className="text-5xl sm:text-8xl font-bold tracking-tighter opacity-30 blur-[0.5px]">
+      <div className="absolute top-8 left-0 w-full text-center z-0 pointer-events-none select-none">
+        <h1 className="text-5xl sm:text-8xl font-bold tracking-tighter opacity-55 blur-[0.5px] text-[#000000]">
           HAPPY BIRTHDAY
         </h1>
-        <p className="mt-4 text-xs tracking-[1em] opacity-60">2026.02.01 // MEMORY ARCHIVE</p>
+        <p className="mt-4 text-xs tracking-[1em] opacity-80 text-[#000000]">2026.02.02 // MEMORY ARCHIVE</p>
       </div>
 
       <div className="relative w-full h-full z-10">
@@ -47,10 +47,10 @@ export default function Home() {
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
       >
-        <div className="relative p-4 bg-white/10 backdrop-blur-md rounded-full border border-white/20 group-hover:bg-yellow-400 group-hover:border-yellow-400 transition-colors duration-300">
-          <Gift className="w-6 h-6 text-white group-hover:text-black transition-colors" />
+        <div className="relative p-4 bg-black/10 backdrop-blur-md rounded-full border border-black/20 group-hover:bg-yellow-400 group-hover:border-yellow-400 transition-colors duration-300">
+          <Gift className="w-6 h-6 text-[#000000] group-hover:text-black transition-colors" />
         </div>
-        <span className="absolute -top-10 right-0 text-xs bg-white text-black px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+        <span className="absolute -top-10 right-0 text-xs bg-[#000000] text-[#e6e7e8] px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
           Open Gift
         </span>
       </motion.button>
@@ -118,19 +118,19 @@ export default function Home() {
               <button onClick={() => setShowGift(false)} className="absolute top-4 right-4 text-gray-500 hover:text-white">
                 <X className="w-6 h-6" />
               </button>
-              <div className="text-center space-y-8">
-                <div className="w-16 h-16 bg-yellow-400 rounded-full mx-auto flex items-center justify-center mb-6">
+              <div className="text-center space-y-6">
+                <div className="w-16 h-16 bg-yellow-400 rounded-full mx-auto flex items-center justify-center mb-4">
                   <Gift className="w-8 h-8 text-black" />
                 </div>
-                <h2 className="text-2xl sm:text-3xl font-bold tracking-wider">
-                  SYSTEM MESSAGE
+                <h2 className="text-xl sm:text-2xl font-bold tracking-wider text-yellow-400">
+                  誕生日メッセージ
                 </h2>
-                <div className="space-y-4 text-gray-300 leading-relaxed font-light text-sm sm:text-base">
-                  <p>全てのデータのロードが完了しました。</p>
-                  <p>ここにある写真は過去の記録ですが、<br/>本当のプレゼントは<br/>「これからの未来」にあります。</p>
-                  <p className="pt-4 text-yellow-400 font-bold animate-pulse">
-                    ↓ Please check the real letter.
-                  </p>
+                <div className="space-y-4 text-gray-300 leading-relaxed font-light text-sm sm:text-base text-left whitespace-pre-line">
+                  <p>りり23歳の誕生日おめでとう。</p>
+                  <p>いつも笑顔で、仕事にも何事にも一生懸命なりりを尊敬してるし応援してるよ。</p>
+                  <p>今年も辛いことも楽しいこともたくさんあると思うけど、健康第一で前向きに一緒に頑張ろうね！</p>
+                  <p>色々なとこに旅行行きたいな！</p>
+                  <p>これからもよろしくね</p>
                 </div>
               </div>
             </motion.div>
