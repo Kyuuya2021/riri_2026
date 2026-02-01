@@ -3,16 +3,21 @@
 import { photos } from '@/data/photos';
 import PhotoCard from '@/components/PhotoCard';
 import { Gift, X } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 
 export default function Home() {
   const [showGift, setShowGift] = useState(false);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [lightboxAspect, setLightboxAspect] = useState<number | null>(null);
+
+  useEffect(() => {
+    if (selectedImage) setLightboxAspect(null);
+  }, [selectedImage]);
 
   return (
-    <main className="relative w-full min-h-screen h-screen bg-[#111] overflow-hidden text-white font-mono selection:bg-yellow-500 selection:text-black">
+    <main className="relative w-full min-h-screen h-screen max-w-[100vw] bg-[#111] overflow-hidden text-white font-mono selection:bg-yellow-500 selection:text-black">
 
       <div className="fixed inset-0 opacity-20 pointer-events-none z-0"
            style={{ backgroundImage: `radial-gradient(#444 1px, transparent 1px)`, backgroundSize: '24px 24px' }}>
@@ -52,30 +57,55 @@ export default function Home() {
 
       <AnimatePresence>
         {selectedImage && (
-          <div
-            className="fixed inset-0 z-[200] flex items-center justify-center p-4 bg-black/20 backdrop-blur-xl"
-            onClick={() => setSelectedImage(null)}
-          >
+          <div className="fixed inset-0 z-[200] flex items-center justify-center p-4">
+            {/* ぼかし背景: タップで閉じる（最下層） */}
+            <div
+              className="absolute inset-0 bg-black/20 backdrop-blur-xl cursor-pointer"
+              onClick={() => setSelectedImage(null)}
+              aria-label="閉じる"
+            />
+            {/* コンテンツエリア: 画像の外（余白・すぐ横）をタップしても閉じる */}
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.8 }}
-              className="relative w-full max-w-4xl h-[90vh] flex items-center justify-center"
-              onClick={(e) => e.stopPropagation()}
+              className="relative z-10 w-full max-w-4xl max-h-[90vh] flex flex-col items-center justify-center cursor-pointer"
+              onClick={() => setSelectedImage(null)}
             >
+              {/* ×ボタン: タップ領域 48px 以上 */}
               <button
-                onClick={() => setSelectedImage(null)}
-                className="absolute -top-12 right-0 sm:top-4 sm:right-4 text-white hover:text-yellow-400 z-50"
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setSelectedImage(null);
+                }}
+                className="absolute -top-2 right-0 sm:top-0 sm:right-0 z-20 flex items-center justify-center min-w-[48px] min-h-[48px] p-2 text-white hover:text-yellow-400 active:opacity-80 touch-manipulation cursor-pointer rounded-full bg-black/40 hover:bg-black/50"
+                aria-label="閉じる"
               >
-                <X className="w-8 h-8 drop-shadow-lg" />
+                <X className="w-8 h-8 drop-shadow-lg pointer-events-none" />
               </button>
-              <div className="relative w-full h-full min-h-[60vh]">
+              {/* 画像だけタップで閉じない（画像のすぐ横・余白は motion.div のタップで閉じる） */}
+              <div
+                className="relative flex items-center justify-center cursor-default max-w-full max-h-[70vh] sm:max-h-[80vh]"
+                onClick={(e) => e.stopPropagation()}
+                style={
+                  lightboxAspect != null
+                    ? { width: '100%', aspectRatio: lightboxAspect, maxHeight: '70vh' }
+                    : { width: '100%', minHeight: '40vh' }
+                }
+              >
                 <Image
                   src={selectedImage}
                   alt="Full size memory"
                   fill
                   className="object-contain"
                   sizes="100vw"
+                  onLoad={(e) => {
+                    const img = e.target as HTMLImageElement;
+                    if (img?.naturalWidth && img?.naturalHeight) {
+                      setLightboxAspect(img.naturalWidth / img.naturalHeight);
+                    }
+                  }}
                 />
               </div>
             </motion.div>
